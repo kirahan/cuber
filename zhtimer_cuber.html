@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="Rubik’s Cube">
+    <meta name="keywords" content="Erno Rubik’s Cube">
+
+    <link rel="stylesheet" type="text/css" href="styles/base.css">
+    <link rel="icon" type="image/png" href="media/cuber-favicon-0064x0064.png">
+    <link rel="apple-touch-icon" href="media/cuber-favicon-0144x0144.png">
+
+    <title>Cuber</title>
+
+
+    <!--  Third-party frameworks and scaffolds.  -->
+
+    <script charset="utf-8" src="scripts/vendor/three.min.js"></script>
+    <script charset="utf-8" src="scripts/vendor/CSS3DRenderer.js"></script>
+    <script charset="utf-8" src="scripts/vendor/SVGRenderer.js"></script>
+    <script charset="utf-8" src="scripts/vendor/tween.min.js"></script>
+    <script charset="utf-8" src="scripts/vendor/TrackballControls.js"></script>
+    <script charset="utf-8" src="scripts/vendor/jquery.js"></script>
+    <script charset="utf-8" src="scripts/vendor/skip.js"></script>
+
+
+    <!--  Here are the Cube guts. Enjoy.  -->
+
+    <script charset="utf-8" src="scripts/colors.js"></script>
+    <script charset="utf-8" src="scripts/directions.js"></script>
+    <script charset="utf-8" src="scripts/queues.js"></script>
+    <script charset="utf-8" src="scripts/twists.js"></script>
+    <script charset="utf-8" src="scripts/cubelets.js"></script>
+    <script charset="utf-8" src="scripts/groups.js"></script>
+    <script charset="utf-8" src="scripts/slices.js"></script>
+    <script charset="utf-8" src="scripts/folds.js"></script>
+    <script charset="utf-8" src="scripts/cubes.js"></script>
+    <script charset="utf-8" src="scripts/solvers.js"></script>
+    <script charset="utf-8" src="scripts/solvers/stewart.js"></script>
+    <script charset="utf-8" src="scripts/erno.js"></script>
+
+
+</head>
+<body class="graydient">
+
+<!--左上角的旋转标示-->
+<!--<div id="cubeHasTwistsQueued"></div>-->
+<!--<div id="cubeIsTweening"></div>-->
+
+
+<div id="twist"></div>
+<div id="captions"></div>
+
+
+<!--虚拟魔方的画布-->
+<div id="container"></div>
+<div id="controlsOpen">
+    <div class="pad">
+        <!--展开控制面板的按钮-->
+        <a href="." onclick="$('#controls').fadeIn( 500 );$('#controlsOpen').fadeOut( 500 );return false">Cube Control</a>
+    </div>
+</div>
+
+<script>
+    function initialize()
+    {
+
+
+            cube.rotationDeltaX = -0.1
+            cube.rotationDeltaY = 0.15
+            cube.isRotating = true
+            cube.presetNormal()
+            cube.taskQueue.isReady = false
+//            setTimeout( function inad(){ cube.taskQueue.isReady = true }, SECOND )
+
+        cube.twistQueue.add('B R180 F-90 D180  F L180 D180 L180 B-90 L180 F D-90 L-90 F180 U-90 R180 D180 L-90 F180 U B-90');
+//        cube.presetHighlightWhite();
+//        cube.twistQueue.add('B R180 F-90 D180  F L180 D180 L180 B-90 L180 F D-90 L-90 F180 U-90 R180 D180 L-90 F180 U B-90');
+    }
+
+
+</script>
+
+<div id="controls">
+    <div class="pad" >
+        <!--调整显示效果-->
+        <div id="initialize">
+            <button onclick="initialize()">点击这里初始化</button>
+        </div>
+
+
+
+        <!--调整属性-->
+        <!--<div id="attributes">-->
+            <!--<h2>Attributes</h2>-->
+            <!--<label><input type="checkbox" id="attributeFaceLabels" checked>Cube face labels</label>-->
+            <!--<label><input type="checkbox" id="attributePlastics"   checked>Plastic surfaces</label>-->
+            <!--<label><input type="checkbox" id="attributeIntroverts" checked>Introvert surfaces</label>-->
+            <!--<label><input type="checkbox" id="attributeStickers"   checked>Color stickers</label>-->
+            <!--<label><input type="checkbox" id="attributeIds"        checked>Cubelet Ids</label>-->
+            <!--<label><input type="checkbox" id="attributeTexts"      checked>Texts</label>-->
+            <!--<label><input type="checkbox" id="attributeWireframes" checked>Wireframes</label>-->
+        <!--</div>-->
+
+
+
+        <!--自动打乱面板-->
+        <!--<div id="actions">-->
+            <!--<h2>Actions</h2>-->
+            <!--<a href="javascript:cube.presetDemo()">Start demo mode</a>-->
+            <!--<a href="javascript:cube.presetDemoStop()">Stop demo mode</a>-->
+            <!--<a href="javascript:cube.isShuffling=true;cube.isRotating=true;updateControls()">Start shuffle &amp; rotate</a>-->
+            <!--<a href="javascript:cube.isShuffling=false;cube.isRotating=false;updateControls()">Stop shuffle &amp; rotate</a>-->
+            <!--<a href="javascript:cube.solve()">Solve the Top Cross</a>-->
+            <!--<label><input type="checkbox" id="actionShuffle">Shuffle</label>-->
+            <!--<label><input type="checkbox" id="actionRotate">Auto rotate</label>-->
+            <!--<label><input type="checkbox" id="actionNotation">Show twist notation</label>-->
+        <!--</div>-->
+
+
+
+        <!--右侧的按钮控制面板-->
+        <div id="commands">
+            <h2>Keyboard commands</h2>
+            <div class="keyBundle">
+                <a class="key" href="javascript:cube.twistQueue.add('X')">X</a><a class="key" href="javascript:cube.twistQueue.add('x')">X'</a> whole cube<br>
+                <a class="key" href="javascript:cube.twistQueue.add('Y')">Y</a><a class="key" href="javascript:cube.twistQueue.add('y')">Y'</a> whole cube<br>
+                <a class="key" href="javascript:cube.twistQueue.add('Z')">Z</a><a class="key" href="javascript:cube.twistQueue.add('z')">Z'</a> whole cube<br>
+
+            </div>
+            <div class="keyBundle">
+                <a class="key" href="javascript:cube.twistQueue.add('L')">L</a><a class="key" href="javascript:cube.twistQueue.add('L-90')">L'</a><a class="key" href="javascript:cube.twistQueue.add('L180')">L2</a> LEFT face<br>
+                <a class="key" href="javascript:cube.twistQueue.add('R')">R</a><a class="key" href="javascript:cube.twistQueue.add('R-90')">R'</a><a class="key" href="javascript:cube.twistQueue.add('R180')">R2</a> RIGHT face<br>
+                <a class="key" href="javascript:cube.twistQueue.add('U')">U</a><a class="key" href="javascript:cube.twistQueue.add('U-90')">U'</a><a class="key" href="javascript:cube.twistQueue.add('U180')">U2</a> UP face<br>
+                <a class="key" href="javascript:cube.twistQueue.add('D')">D</a><a class="key" href="javascript:cube.twistQueue.add('D-90')">D'</a><a class="key" href="javascript:cube.twistQueue.add('D180')">D2</a> DOWN face<br>
+                <a class="key" href="javascript:cube.twistQueue.add('F')">F</a><a class="key" href="javascript:cube.twistQueue.add('F-90')">F'</a><a class="key" href="javascript:cube.twistQueue.add('F180')">F2</a> FRONT face<br>
+                <a class="key" href="javascript:cube.twistQueue.add('B')">B</a><a class="key" href="javascript:cube.twistQueue.add('B-90')">B'</a><a class="key" href="javascript:cube.twistQueue.add('B180')">B2</a> BACK face<br>
+
+
+            </div>
+            <div class="keyBundle">
+                <a class="key" href="javascript:cube.twistQueue.add('M-90')">M</a><a class="key" href="javascript:cube.twistQueue.add('M')">M'</a><a class="key" href="javascript:cube.twistQueue.add('M180')">M2</a> MIDDLE face<br>
+                <a class="key" href="javascript:FRONT.getOpposite()">r</a><a class="key" href="javascript:cube.twistQueue.add('MR-90')">r'</a><br>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>
