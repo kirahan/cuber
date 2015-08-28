@@ -70,13 +70,11 @@
             cube.rotationDeltaY = 0.15
             cube.isRotating = true
             cube.presetNormal()
-            cube.taskQueue.isReady = false
-//            setTimeout( function inad(){ cube.taskQueue.isReady = true }, SECOND )
 
-        cube.twistQueue.add('B R180 F-90 D180  F L180 D180 L180 B-90 L180 F D-90 L-90 F180 U-90 R180 D180 L-90 F180 U B-90');
-//        cube.presetHighlightWhite();
+
+
 //        cube.twistQueue.add('B R180 F-90 D180  F L180 D180 L180 B-90 L180 F D-90 L-90 F180 U-90 R180 D180 L-90 F180 U B-90');
-    }
+}
 
 
 </script>
@@ -140,7 +138,7 @@
             </div>
             <div class="keyBundle">
                 <a class="key" href="javascript:cube.twistQueue.add('M-90')">M</a><a class="key" href="javascript:cube.twistQueue.add('M')">M'</a><a class="key" href="javascript:cube.twistQueue.add('M180')">M2</a> MIDDLE face<br>
-                <a class="key" href="javascript:FRONT.getOpposite()">r</a><a class="key" href="javascript:cube.twistQueue.add('MR-90')">r'</a><br>
+                <a class="key" href="javascript:cube.twistQueue.add('P')">P</a><a class="key" href="javascript:cube.twistQueue.add('MR-90')">r'</a><br>
 
             </div>
         </div>

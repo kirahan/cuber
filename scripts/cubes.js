@@ -322,6 +322,7 @@ setupTasks.push( function(){
 				this.cubelets[ 25 ], this.cubelets[ 22 ], this.cubelets[ 19 ],
 				this.cubelets[ 16 ], this.cubelets[ 13 ], this.cubelets[ 10 ],
 				this.cubelets[  7 ], this.cubelets[  4 ], this.cubelets[  1 ]
+
 			)
 			this.middle.name = 'middle'
 			this.right = new Slice(
@@ -329,8 +330,25 @@ setupTasks.push( function(){
 				this.cubelets[  2 ], this.cubelets[ 11 ], this.cubelets[ 20 ],
 				this.cubelets[  5 ], this.cubelets[ 14 ], this.cubelets[ 23 ],
 				this.cubelets[  8 ], this.cubelets[ 17 ], this.cubelets[ 26 ]
+
 			)
 			this.right.name = 'right'
+
+
+			//add by kira han in order to rotate 'r'
+			this.right2layer = new Slice(
+				//middle layer
+				this.cubelets[ 25 ], this.cubelets[ 22 ], this.cubelets[ 19 ],
+				this.cubelets[ 16 ], this.cubelets[ 13 ], this.cubelets[ 10 ],
+				this.cubelets[  7 ], this.cubelets[  4 ], this.cubelets[  1],
+
+				//right layer
+				this.cubelets[  2 ], this.cubelets[ 11 ], this.cubelets[ 20 ],
+				this.cubelets[  5 ], this.cubelets[ 14 ], this.cubelets[ 23 ],
+				this.cubelets[  8 ], this.cubelets[ 17 ], this.cubelets[ 26 ]
+
+			)
+
 
 
 			//  Slices that can rotate about the Y-axis:
@@ -554,7 +572,6 @@ setupTasks.push( function(){
 				else if( command === 'R' && !cube.right.isEngagedY() && !cube.right.isEngagedZ() ){
 
 					onTwistComplete = function( swap ){
-
 						cube.cubelets[  2 ] = swap[  8 ]
 						cube.cubelets[ 11 ] = swap[  5 ]
 						cube.cubelets[ 20 ] = swap[  2 ]
@@ -671,7 +688,34 @@ setupTasks.push( function(){
 						else cubelet.rotate( 'X', degrees )
 					})
 				}
-				
+				else if( command === 'P' ){
+
+					onTwistComplete = function( swap ){
+
+						cube.cubelets[  1 ] = swap[ 19 ]
+						cube.cubelets[ 10 ] = swap[ 22 ]
+						cube.cubelets[ 19 ] = swap[ 25 ]
+						cube.cubelets[  4 ] = swap[ 10 ]
+						cube.cubelets[ 22 ] = swap[ 16 ]
+						cube.cubelets[  7 ] = swap[  1 ]
+						cube.cubelets[ 16 ] = swap[  4 ]
+						cube.cubelets[ 25 ] = swap[  7 ]
+						cube.cubelets[  2 ] = swap[  8 ]
+						cube.cubelets[ 11 ] = swap[  5 ]
+						cube.cubelets[ 20 ] = swap[  2 ]
+						cube.cubelets[  5 ] = swap[ 17 ]
+						cube.cubelets[ 23 ] = swap[ 11 ]
+						cube.cubelets[  8 ] = swap[ 26 ]
+						cube.cubelets[ 17 ] = swap[ 23 ]
+						cube.cubelets[ 26 ] = swap[ 20 ]
+					}
+					if( degrees === undefined ) degrees = cube.right2layer.getDistanceToPeg( 'x' )
+					cube.right2layer.cubelets.forEach( function( cubelet, i ){
+
+						if( i === cube.right2layer.cubelets.length - 1 ) cubelet.rotate( 'x', degrees, onTwistComplete )
+						else cubelet.rotate( 'x', degrees )
+					})
+				}
 
 				//  Y-axis rotations
 		
